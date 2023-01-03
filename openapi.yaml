@@ -1,0 +1,23 @@
+openapi: 3.0.1
+info:
+  title: File Manager API
+  version: 1.0.0
+paths:
+  /upload:
+    post:
+      tags:
+        - File Manager API
+      summary: Upload file to API
+      operationId: uploadFile
+      requestBody:
+        required: true
+        content:
+          application/octet-stream:
+            schema:
+              type: string
+              format: binary
+      responses:
+        '200':
+          description: File uploaded successfully
+        '500':
+          description: Internal server error

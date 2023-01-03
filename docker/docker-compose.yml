@@ -1,0 +1,25 @@
+version: '3'
+services:
+  localstack:
+    image: localstack/localstack
+    ports:
+      - "4566-4599:4566-4599"
+      - "${DEBUG_PORT:-8080}:8080"
+    environment:
+      - SERVICES=s3
+      - DEBUG=1
+      - DATA_DIR=/var/lib/localstack/data
+      - PORT_WEB_UI=8080
+      - LAMBDA_EXECUTOR=local
+      - KINESIS_ERROR_PROBABILITY=0
+      - DOCKER_HOST=unix:///var/run/docker.sock
+      - HOST_TMP_FOLDER=${TMPDIR:-/var/lib/localstack}
+      - AWS_ACCESS_KEY_ID=accessKey
+      - AWS_SECRET_ACCESS_KEY=secretKey
+      - AWS_DEFAULT_REGION=us-east-1
+    volumes:
+      - "${TMPDIR:-/var/lib/localstack}:/var/lib/localstack"
+      - "/var/run/docker.sock:/var/run/docker.sock"
+      - "./aws/bucket-file:/var/lib/localstack/data/bucket-file"
+#    command: >
+#      sh -c "aws --endpoint-url=http://localhost:4566 s3 mb s3://bucket-file"

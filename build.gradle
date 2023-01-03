@@ -1,0 +1,88 @@
+plugins {
+    id "java"
+    id "org.jetbrains.kotlin.jvm" version "1.6.0"
+    id "org.jetbrains.kotlinx.kover" version "0.4.2"
+    id "org.jetbrains.kotlin.plugin.serialization" version "1.6.0"
+    id "org.jlleitschuh.gradle.ktlint" version "10.2.0"
+    id "com.github.johnrengelman.shadow" version "7.1.0"
+}
+
+repositories {
+    mavenCentral()
+}
+
+def awsGroupName = "com.amazonaws"
+def slf4jGroupName = "org.slf4j"
+def junitVersion = "5.8.2"
+def slf4jVersion = "1.7.32"
+def javaVersion = "1.8"
+def mockkVersion = "1.12.1"
+def okHttpVersion = "4.9.3"
+def kotlinVersion = "1.6.0"
+def ktLintVersion = '0.48.0'
+def awsSdkVersion = '1.12.232'
+def cucumberVersion = "7.1.0"
+def cucumberJunitVersion = "7.1.0"
+def configTypesafeVersion = "1.4.1"
+def kotlinSerializationVersion = "1.3.1"
+
+
+def junitVintageVersion = "5.8.2"
+
+configurations {
+    ktlint
+}
+
+compileKotlin {
+    kotlinOptions.jvmTarget = javaVersion
+}
+
+compileTestKotlin {
+    kotlinOptions.jvmTarget = javaVersion
+}
+
+dependencies {
+
+    implementation 'org.jetbrains.kotlin:kotlin-reflect'
+    implementation 'org.jetbrains.kotlin:kotlin-stdlib-jdk8'
+
+    // Kotlin Serialization
+    implementation "org.jetbrains.kotlinx:kotlinx-serialization-json:${kotlinSerializationVersion}"
+
+    // Configs
+    implementation "com.typesafe:config:${configTypesafeVersion}"
+
+    // OkHttp
+    implementation "com.squareup.okhttp3:okhttp:${okHttpVersion}"
+
+    // SLF4J
+    implementation "${slf4jGroupName}:slf4j-api:${slf4jVersion}"
+    implementation "${slf4jGroupName}:slf4j-log4j12:${slf4jVersion}"
+
+    //swagger
+    implementation("io.swagger.core.v3:swagger-annotations:2.1.6")
+
+    // Amazon SDK
+    implementation "${awsGroupName}:aws-java-sdk-s3:${awsSdkVersion}"
+    implementation "${awsGroupName}:aws-java-sdk-core:${awsSdkVersion}"
+    implementation "${awsGroupName}:aws-java-sdk-secretsmanager:${awsSdkVersion}"
+
+    // Tests
+    testImplementation "org.junit.jupiter:junit-jupiter:${junitVersion}"
+    testImplementation "org.jetbrains.kotlin:kotlin-test:${kotlinVersion}"
+    testImplementation "org.junit.vintage:junit-vintage-engine:${junitVintageVersion}"
+
+    // Mockk
+    testImplementation "io.mockk:mockk:${mockkVersion}"
+
+    // Cucumber
+    testImplementation "io.cucumber:cucumber-java:${cucumberVersion}"
+    testImplementation "io.cucumber:cucumber-junit:${cucumberJunitVersion}"
+
+    // Ktlint
+    ktlint "com.pinterest:ktlint:${ktLintVersion}"
+}
+
+tasks.named('test') {
+    useJUnitPlatform()
+}
