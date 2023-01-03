@@ -23,3 +23,4 @@ services:
       - "./aws/bucket-file:/var/lib/localstack/data/bucket-file"
 #    command: >
 #      sh -c "aws --endpoint-url=http://localhost:4566 s3 mb s3://bucket-file"
+#      sh -c "awslocal s3api create-bucket --bucket bucket-file --region us-east-1"

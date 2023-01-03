@@ -8,13 +8,15 @@ import java.io.File
 fun main(args: Array<String>) {
     try {
         val fileManager = FileManager()
-        val file = File("./abc123")
+        val file = File("./docker/aws/bucket-file/abc123")
 
         // Faça o upload do arquivo "abc123" para o S3
-        fileManager.uploadFile(file)
+        val fileUrl = fileManager.uploadFile(file)
+        println("Arquivo enviado para: $fileUrl")
 
         // Faça o download do arquivo "abc123" do S3
-        fileManager.downloadFile("abc123")
+        val downloadedFile = fileManager.downloadFile(file.name)
+        println("Arquivo baixado: ${downloadedFile.name}")
 
     } finally {
         println("sucesso")

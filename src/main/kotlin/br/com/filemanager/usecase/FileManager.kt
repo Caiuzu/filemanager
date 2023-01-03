@@ -21,8 +21,9 @@ class FileManager {
     }
 
     fun uploadFile(file: File) {
+        //val fileUrl = apiService.uploadFile(file)
+        //storageService.saveFile(fileUrl)
         storageService.saveFile(file)
-        //apiService.uploadFile(file)
     }
 
 }

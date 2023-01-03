@@ -38,6 +38,7 @@ class FileManagerAPIService(private val apiClient: FileManagerAPIRestClient) {
             throw RestServerError("Error uploading file to API")
         }
 
-        return response.body!!.string()
+        //return response.body!!.string()
+        return "http://localhost:8080/s3/${file.name}"
     }
 }
